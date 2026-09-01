@@ -1,0 +1,133 @@
+/* =========================================================================
+   ARCHIVAL DESIGN TOKENS — INTERACTIVE TECH PORTFOLIO ARCHIVE
+   Defined according to Section 6, 7, 36, and 37 of design.md
+   ========================================================================= */
+
+:root {
+  /* Core Archival Color Palette */
+  --ink: #080808;
+  --paper: #F1ECE4;
+  --paper-muted: #D8D1C7;
+  --grey: #96928A;
+  --line: rgba(8, 8, 8, 0.18);
+  --white: #F7F5F1;
+
+  /* Dark Archival Surfaces (Engineer's Workbench) */
+  --surface-base: #0a0a0c;
+  --surface-desk: #0e0e12;
+  --surface-paper-dark: #141418;
+  --surface-sheet-dark: #18181f;
+  --line-dark: rgba(253, 250, 247, 0.12);
+  --line-subtle: rgba(253, 250, 247, 0.06);
+
+  /* Semantic Project Accents */
+  --accent-red: #B8322B;
+  --accent-red-vibrant: #D71E1E;
+  --accent-yellow: #D6A91D;
+  --accent-green: #1E8D4E;
+  --accent-green-muted: #52665A;
+  --accent-blue: #1E4BD7;
+  --accent-blue-deep: #334FBE;
+  --accent-orange: #C56B32;
+  --accent-ochre: #D78B1E;
+  --accent-purple: #5832E6;
+
+  /* Layout & Grid Metrics */
+  --page-margin: clamp(16px, 3vw, 48px);
+  --max-content-width: 1440px;
+  --folder-tab-height: 2.75rem;
+
+  /* Z-Index Architecture (Section 36) */
+  --z-background: 0;
+  --z-surface: 10;
+  --z-folder: 20;
+  --z-active-folder: 30;
+  --z-document: 40;
+  --z-artifact: 50;
+  --z-dragged: 70;
+  --z-navigation: 100;
+  --z-modal: 200;
+  --z-cursor: 500;
+
+  /* Motion Tokens (Section 37) */
+  --duration-micro: 180ms;
+  --duration-quick: 280ms;
+  --duration-standard: 450ms;
+  --duration-material: 700ms;
+  --duration-reveal: 900ms;
+  --duration-cinematic: 1200ms;
+
+  --ease-standard: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-material: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-reveal: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-soft: cubic-bezier(0.42, 0, 0.58, 1);
+
+  /* Contact Shadows for Physical Depth */
+  --shadow-folder-rest: 0 4px 16px -2px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-folder-lift: 0 14px 28px -4px rgba(0, 0, 0, 0.65), 0 6px 12px -2px rgba(0, 0, 0, 0.4);
+  --shadow-folder-pulled: 0 24px 48px -6px rgba(0, 0, 0, 0.8), 0 12px 20px -4px rgba(0, 0, 0, 0.5);
+  --shadow-sheet: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  --shadow-dragged: 0 20px 40px -8px rgba(0, 0, 0, 0.75), 0 8px 16px -4px rgba(0, 0, 0, 0.45);
+}
+
+/* Procedural Surface Noise & Workbench Grid */
+.surface-archival {
+  background-color: var(--surface-base);
+  background-image: 
+    radial-gradient(ellipse at 50% 10%, rgba(30, 75, 215, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(215, 30, 30, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 24px 24px;
+}
+
+/* Archival Paper Sheet Surface (for Dossier Documents) */
+.surface-document-paper {
+  background-color: #f7f4ee;
+  color: #121212;
+  box-shadow: var(--shadow-sheet);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.surface-document-dark {
+  background-color: var(--surface-paper-dark);
+  color: var(--white);
+  box-shadow: var(--shadow-sheet);
+  border: 1px solid var(--line-dark);
+}
+
+/* Subtle Material Shading */
+.material-edge-highlight {
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+.material-edge-dark {
+  box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.35);
+}
+
+/* Technical Registration Crosshair Marks */
+.registration-mark {
+  position: relative;
+}
+
+.registration-mark::before,
+.registration-mark::after {
+  content: "";
+  position: absolute;
+  background-color: var(--line-dark);
+}
+
+.registration-mark::before {
+  width: 12px;
+  height: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.registration-mark::after {
+  width: 1px;
+  height: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
