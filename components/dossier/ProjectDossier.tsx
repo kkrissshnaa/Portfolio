@@ -11,6 +11,7 @@ import { CatalogueMeta } from "@/components/dossier/CatalogueMeta";
 import { TechnicalSheet } from "@/components/dossier/TechnicalSheet";
 import { BrowserArtifact } from "@/components/artifacts/BrowserArtifact";
 import { TerminalArtifact } from "@/components/artifacts/TerminalArtifact";
+import { DraggableArtifact } from "@/components/artifacts/DraggableArtifact";
 import { soundFx } from "@/lib/audio";
 import { motionTokens, documentRevealVariants } from "@/motion/tokens";
 import { GithubIcon } from "@/components/Icons";
@@ -336,12 +337,47 @@ export const ProjectDossier: React.FC<ProjectDossierProps> = ({
           />
         </div>
 
+        {/* LOOSE ARCHIVAL ARTIFACTS & RESEARCH SHEETS (Section 18 & 19) */}
+        {project.looseArtifacts && project.looseArtifacts.length > 0 && (
+          <div className="border-t border-white/10 pt-12">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+              <div>
+                <span className="font-mono text-xs text-neutral-400 uppercase tracking-widest block mb-1 font-semibold">
+                  ARCHIVAL ATTACHMENTS // DIRECT MANIPULATION
+                </span>
+                <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal">
+                  Classified Research Sheets & Clipped Notes
+                </h3>
+              </div>
+              <span className="font-mono text-[11px] text-neutral-500 uppercase tracking-wider">
+                [DRAG & INSPECT]
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+              {project.looseArtifacts.map((art) => (
+                <DraggableArtifact
+                  key={art.id}
+                  id={art.id}
+                  type={art.type}
+                  title={art.title}
+                  content={art.content}
+                  rotation={art.rotation}
+                  paperclipColor={art.paperclipColor}
+                  accentColor={project.bgColor}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* 10 — HIGHLIGHTS & KEY TRADEOFFS */}
         <div className="border-t border-white/10 pt-12">
           <span className="font-mono text-xs text-neutral-400 uppercase tracking-widest block mb-4 font-semibold">
             10 // CODE ARTIFACTS & RESOLVED CHALLENGES
           </span>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
             {/* Highlights */}
             <div className="space-y-6">
               {project.highlights.map((h, i) => (

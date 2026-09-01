@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
+import { ArchiveCursor } from "@/components/archive/ArchiveCursor";
 
 export const metadata: Metadata = {
   title: "Krishna's Files — Engineering & Full-Stack Modernism",
@@ -43,8 +44,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="min-h-screen bg-[#0c0c0e] text-[#FDFAF7] antialiased overflow-x-hidden">
+        <ArchiveCursor />
         {children}
       </body>
+
     </html>
   );
 }
