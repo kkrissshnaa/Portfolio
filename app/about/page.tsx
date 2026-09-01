@@ -12,47 +12,43 @@ import {
   ArrowLeft,
   ArrowUpRight,
   Mail,
-  Terminal,
+  CheckCircle,
+  Cpu,
   Compass,
-  Layers,
-  Code2,
-  CheckCircle
+  FileText
 } from "lucide-react";
 
 export default function AboutPage() {
   const [gridVisible, setGridVisible] = useState(false);
 
   return (
-    <main className="min-h-screen bg-[#0c0c0e] text-[#FDFAF7] selection:bg-blue-600 selection:text-white">
-      <Header gridVisible={gridVisible} onToggleGrid={() => setGridVisible(!gridVisible)} />
+    <main className="about-page surface-archival min-h-screen text-[#FDFAF7] selection:bg-blue-600 selection:text-white relative">
+      <Header gridVisible={gridVisible} onToggleGrid={() => setGridVisible((prev) => !prev)} />
       <BlueprintGrid visible={gridVisible} />
 
-      {/* Hero Header */}
+      {/* Hero Header & Identity Document Header (Section 31) */}
       <section className="pt-28 pb-16 px-4 sm:px-6 container-mosby border-b border-white/10">
-        <div className="flex flex-col gap-6 max-w-4xl">
+        <div className="flex flex-col gap-6 max-w-5xl">
           <Link
             href="/"
             onClick={() => soundFx.playFolderOpen()}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 font-mono text-xs text-neutral-300 hover:text-white transition-all uppercase tracking-wider w-fit"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 font-mono text-xs text-neutral-300 hover:text-white transition-all uppercase tracking-wider w-fit group"
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Return to Archives</span>
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            <span>← RETURN TO ARCHIVE CABINET</span>
           </Link>
 
           <div className="flex items-center gap-3 font-mono text-xs text-neutral-400 uppercase tracking-widest">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            <span>ARCHIVE CURATOR & ENGINEER // BIO & PHILOSOPHY</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>IDENTITY DOCUMENT // ARCHIVAL DOSSIER KB-2026</span>
           </div>
 
-          <h1
-            className="font-serif text-5xl sm:text-7xl md:text-8xl font-normal text-white uppercase leading-none tracking-tight"
-            style={{ fontSize: "clamp(2.5rem, 7vw, 6.5rem)" }}
-          >
+          <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-normal text-white uppercase leading-none tracking-tight">
             Krishna Bhardwaj
           </h1>
 
-          <p className="font-sans text-lg sm:text-xl md:text-2xl text-neutral-300 font-light leading-relaxed">
-            {ABOUT_DATA.title} based in {ABOUT_DATA.location} (
+          <p className="font-sans text-lg sm:text-xl md:text-2xl text-neutral-300 font-light leading-relaxed max-w-3xl">
+            {ABOUT_DATA.title} operating from {ABOUT_DATA.location} (
             <span className="font-mono text-base text-blue-400">
               {ABOUT_DATA.coordinates}
             </span>
@@ -61,14 +57,63 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* SECTION 31: IDENTITY SPECIFICATION SHEET */}
+      <section className="py-12 px-4 sm:px-6 container-mosby border-b border-white/10">
+        <div className="rounded-xl bg-[#111116] border border-white/15 p-6 sm:p-10 relative overflow-hidden shadow-2xl">
+          <div className="border-b border-white/15 pb-4 mb-6 flex items-center justify-between font-mono text-xs text-neutral-400">
+            <div className="flex items-center gap-2">
+              <FileText className="w-4 h-4 text-blue-400" />
+              <span className="text-white font-semibold uppercase tracking-wider">
+                CURATOR SPECIFICATION MANIFEST
+              </span>
+            </div>
+            <span>DOC ID: KB-ENG-089</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 font-mono text-xs">
+            <div className="space-y-1">
+              <span className="text-[10px] text-neutral-500 uppercase tracking-widest block font-bold">
+                FULL NAME
+              </span>
+              <span className="text-white font-semibold text-sm">KRISHNA BHARDWAJ</span>
+              <span className="text-[11px] text-neutral-400 block">ALIAS: @kkrissshnaa</span>
+            </div>
+
+            <div className="space-y-1">
+              <span className="text-[10px] text-neutral-500 uppercase tracking-widest block font-bold">
+                PRIMARY DISCIPLINE
+              </span>
+              <span className="text-white font-semibold text-sm">FULL-STACK SYSTEMS</span>
+              <span className="text-[11px] text-neutral-400 block">DISTRIBUTED ENGINES</span>
+            </div>
+
+            <div className="space-y-1">
+              <span className="text-[10px] text-neutral-500 uppercase tracking-widest block font-bold">
+                CURRENT FOCUS
+              </span>
+              <span className="text-emerald-400 font-semibold text-sm">MULTIMODAL AI & REALTIME</span>
+              <span className="text-[11px] text-neutral-400 block">SOLANA & WEBSOCKETS</span>
+            </div>
+
+            <div className="space-y-1">
+              <span className="text-[10px] text-neutral-500 uppercase tracking-widest block font-bold">
+                ARCHIVE AVAILABILITY
+              </span>
+              <span className="text-blue-400 font-semibold text-sm">AVAILABLE FOR ROLES</span>
+              <span className="text-[11px] text-neutral-400 block">GLOBAL REMOTE / RELOC</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Biography & Philosophy Grid */}
       <section className="py-16 px-4 sm:px-6 container-mosby border-b border-white/10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left Column: Biography */}
-          <div className="lg:col-span-6 flex flex-col justify-between">
+          <div className="lg:col-span-6 flex flex-col justify-between space-y-8">
             <div>
               <span className="font-mono text-xs text-blue-400 uppercase tracking-widest font-semibold mb-3 block">
-                01. BIOGRAPHICAL CONTEXT
+                01 // BIOGRAPHICAL CONTEXT
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal mb-6">
                 Code as Architectural Craftsmanship
@@ -81,24 +126,24 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* Scale Marker */}
-            <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between font-mono text-xs text-neutral-500">
-              <span>LATITUDE: 28.6139° N</span>
+            {/* Scale & Coordinates Footer */}
+            <div className="pt-6 border-t border-white/10 flex items-center justify-between font-mono text-xs text-neutral-500">
+              <span>LAT: 28.6139° N</span>
               <WindRose size={32} color="#60A5FA" />
-              <span>LONGITUDE: 77.2090° E</span>
+              <span>LON: 77.2090° E</span>
             </div>
           </div>
 
           {/* Right Column: Engineering Philosophies */}
           <div className="lg:col-span-6 flex flex-col gap-6">
             <span className="font-mono text-xs text-emerald-400 uppercase tracking-widest font-semibold block">
-              02. GUIDING PRINCIPLES
+              02 // GUIDING PRINCIPLES & MANIFEST
             </span>
 
             {ABOUT_DATA.philosophy.map((item, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-xl bg-[#141418] border border-white/10 flex flex-col gap-2 hover:border-white/20 transition-all"
+                className="p-6 rounded-xl bg-[#121217] border border-white/10 flex flex-col gap-2 hover:border-white/20 transition-all"
               >
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-xs text-neutral-500 font-semibold">
@@ -122,7 +167,7 @@ export default function AboutPage() {
         <div className="flex flex-col gap-8">
           <div>
             <span className="font-mono text-xs text-purple-400 uppercase tracking-widest font-semibold block mb-2">
-              03. TECHNICAL CAPABILITIES
+              03 // TECHNICAL CAPABILITIES
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal">
               Architecture & Stack Matrix
@@ -133,17 +178,17 @@ export default function AboutPage() {
             {ABOUT_DATA.skills.map((skillGroup, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-xl bg-[#141418] border border-white/10 flex flex-col justify-between"
+                className="p-6 rounded-xl bg-[#121217] border border-white/10 flex flex-col justify-between"
               >
                 <div>
-                  <h3 className="font-mono text-xs uppercase tracking-wider text-neutral-400 pb-3 mb-4 border-b border-white/10">
+                  <h3 className="font-mono text-xs uppercase tracking-wider text-neutral-400 pb-3 mb-4 border-b border-white/10 font-semibold">
                     {skillGroup.category}
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {skillGroup.items.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="px-3 py-1.5 rounded bg-black/40 border border-white/10 font-mono text-xs text-neutral-200"
+                        className="px-3 py-1.5 rounded bg-black/50 border border-white/10 font-mono text-xs text-neutral-200"
                       >
                         {skill}
                       </span>
@@ -152,7 +197,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="mt-6 pt-3 border-t border-white/10 flex items-center justify-between font-mono text-[10px] text-neutral-500">
-                  <span>PRODUCTION TESTED</span>
+                  <span>PRODUCTION VERIFIED</span>
                   <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
                 </div>
               </div>
@@ -167,10 +212,10 @@ export default function AboutPage() {
           <div className="flex items-center justify-between">
             <div>
               <span className="font-mono text-xs text-amber-400 uppercase tracking-widest font-semibold block mb-2">
-                04. COMPLETE ARCHIVE INDEX
+                04 // COMPLETE ARCHIVE INDEX
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal">
-                GitHub Repositories
+                Audited Project Files
               </h2>
             </div>
             <a
@@ -180,7 +225,7 @@ export default function AboutPage() {
               onClick={() => soundFx.playClick()}
               className="hidden sm:inline-flex items-center gap-2 font-mono text-xs text-neutral-300 hover:text-white uppercase tracking-wider"
             >
-              <span>View @kkrissshnaa</span>
+              <span>View GitHub @kkrissshnaa</span>
               <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
@@ -189,11 +234,11 @@ export default function AboutPage() {
             <table className="w-full text-left font-mono text-xs border-collapse">
               <thead>
                 <tr className="border-b border-white/20 text-neutral-400 uppercase tracking-wider">
-                  <th className="py-3 px-4">File No.</th>
-                  <th className="py-3 px-4">Repository</th>
-                  <th className="py-3 px-4">Domain</th>
-                  <th className="py-3 px-4">Timeline</th>
-                  <th className="py-3 px-4 text-right">Links</th>
+                  <th className="py-3 px-4">Index</th>
+                  <th className="py-3 px-4">Project File</th>
+                  <th className="py-3 px-4">Category</th>
+                  <th className="py-3 px-4">Year</th>
+                  <th className="py-3 px-4 text-right">Dossier</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/10">
@@ -228,7 +273,7 @@ export default function AboutPage() {
                           onClick={() => soundFx.playFolderOpen()}
                           className="text-neutral-300 hover:text-white underline underline-offset-2"
                         >
-                          Case Study
+                          Open Dossier
                         </Link>
                         <a
                           href={project.githubUrl}
@@ -251,7 +296,7 @@ export default function AboutPage() {
 
       {/* Contact & Socials Footer */}
       <section className="py-20 px-4 sm:px-6 container-mosby">
-        <div className="p-8 sm:p-12 md:p-16 rounded-2xl bg-gradient-to-b from-[#141418] to-black border border-white/15 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="p-8 sm:p-12 md:p-16 rounded-2xl bg-gradient-to-b from-[#141418] to-black border border-white/15 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
           <div className="flex flex-col gap-3 text-center md:text-left">
             <span className="font-mono text-xs text-blue-400 uppercase tracking-widest font-semibold">
               COMMUNICATION CHANNELS

@@ -69,15 +69,24 @@ export const Header: React.FC<HeaderProps> = ({
           )}
 
           <Link
+            href="/#archive-stack"
+            onClick={() => soundFx.playClick()}
+            className="the-nav__item text-xs md:text-sm uppercase tracking-wider font-mono"
+          >
+            Index
+          </Link>
+
+          <Link
             href="/about"
             onClick={() => soundFx.playClick()}
-            className="the-nav__item"
+            className="the-nav__item text-xs md:text-sm uppercase tracking-wider font-mono"
             data-v-ef15606b
             data-v-300b7ff9
           >
             About
           </Link>
         </nav>
+
       </div>
     </header>
   );
