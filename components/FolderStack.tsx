@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { PROJECTS, Project } from "@/lib/projectsData";
+import { useRouter } from "next/navigation";
+import { PROJECTS } from "@/lib/projectsData";
 import { ArchiveFolder } from "@/components/archive/ArchiveFolder";
 import { soundFx } from "@/lib/audio";
 import { WindRose } from "@/components/WindRose";
 
 export const FolderStack: React.FC = () => {
+  const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number>(PROJECTS.length - 1); // Top folder active by default
 
   const handleHover = useCallback((idx: number) => {
@@ -35,12 +37,15 @@ export const FolderStack: React.FC = () => {
           soundFx.playHover();
           return next;
         });
+      } else if (e.key === "Enter" && !e.repeat) {
+        soundFx.playFolderOpen();
+        router.push(`/cases/${PROJECTS[hoveredIndex].slug}`);
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [hoveredIndex, router]);
 
   const totalFolders = PROJECTS.length;
 

@@ -10,6 +10,7 @@ interface FolderTabProps {
   isActive?: boolean;
   isPulling?: boolean;
   className?: string;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 export const FolderTab: React.FC<FolderTabProps> = ({
@@ -19,11 +20,17 @@ export const FolderTab: React.FC<FolderTabProps> = ({
   textColor,
   isActive = false,
   isPulling = false,
-  className = ""
+  className = "",
+  onClick
 }) => {
   return (
     <div
-      className={`folder-tab tag ${isActive ? "is-visible" : ""} ${className}`}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      className={`folder-tab tag inline-flex items-end cursor-pointer select-none transition-all duration-300 ${
+        isActive ? "is-visible is-active" : ""
+      } ${className}`}
       style={
         {
           "--color": textColor,
@@ -34,39 +41,71 @@ export const FolderTab: React.FC<FolderTabProps> = ({
     >
       {/* Left Bezier Curve Shoulder */}
       <svg
-        className="tag__side tag__start"
+        className="tag__side tag__start shrink-0"
         viewBox="0 0 62 44"
+        style={{ width: "calc(var(--tag-height, 2.75rem) * 1.409)", height: "var(--tag-height, 2.75rem)" }}
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
+        {/* Solid fill matching folder color */}
         <path
-          d="M1.1449 -2.54901e-05L-521.145 -2.66006e-06C-531.065 -2.22644e-06 -540.343 4.90374 -545.932 13.0999L-558.55 31.6066C-563.837 39.3607 -572.615 44 -582 44L62 44C52.6151 44 43.8369 39.3607 38.5499 31.6066L25.9318 13.0999C20.3434 4.90373 11.0649 -2.59237e-05 1.1449 -2.54901e-05Z"
-          fill="currentColor"
+          d="M 0 44 C 28 44, 34 0, 62 0 L 62 44 Z"
+          fill={color}
+        />
+        {/* Subtle Material Edge Highlight on upper shoulder */}
+        <path
+          d="M 0 44 C 28 44, 34 0, 62 0"
+          stroke="rgba(255, 255, 255, 0.22)"
+          strokeWidth="1"
+          fill="none"
         />
       </svg>
 
       {/* Center Tab Body */}
-      <div className="tag__middle flex items-center gap-2 px-3 select-none">
-        <span className="font-mono text-[11px] opacity-75 font-semibold tracking-wider">
+      <div
+        className="tag__middle flex items-center gap-2 px-3 sm:px-4 h-[var(--tag-height,2.75rem)] border-t border-white/25 transition-colors"
+        style={{
+          backgroundColor: color,
+          color: textColor
+        }}
+      >
+        <span
+          className={`font-mono text-[10px] sm:text-xs font-semibold tracking-wider transition-opacity ${
+            isActive ? "opacity-100" : "opacity-75"
+          }`}
+        >
           {index}
         </span>
-        <span className="font-serif text-lg sm:text-xl font-normal tracking-normal uppercase">
+        <span
+          className={`font-serif text-sm sm:text-base md:text-xl font-normal tracking-normal uppercase truncate max-w-[120px] sm:max-w-none whitespace-nowrap transition-opacity ${
+            isActive ? "opacity-100 font-medium" : "opacity-85"
+          }`}
+        >
           {label}
         </span>
       </div>
 
       {/* Right Bezier Curve Shoulder */}
       <svg
-        className="tag__side tag__end"
+        className="tag__side tag__end shrink-0"
         viewBox="0 0 62 44"
+        style={{ width: "calc(var(--tag-height, 2.75rem) * 1.409)", height: "var(--tag-height, 2.75rem)" }}
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
+        {/* Solid fill matching folder color */}
         <path
-          d="M1.1449 -2.54901e-05L-521.145 -2.66006e-06C-531.065 -2.22644e-06 -540.343 4.90374 -545.932 13.0999L-558.55 31.6066C-563.837 39.3607 -572.615 44 -582 44L62 44C52.6151 44 43.8369 39.3607 38.5499 31.6066L25.9318 13.0999C20.3434 4.90373 11.0649 -2.59237e-05 1.1449 -2.54901e-05Z"
-          fill="currentColor"
+          d="M 0 0 C 28 0, 34 44, 62 44 L 0 44 Z"
+          fill={color}
+        />
+        {/* Subtle Material Edge Highlight on upper shoulder */}
+        <path
+          d="M 0 0 C 28 0, 34 44, 62 44"
+          stroke="rgba(255, 255, 255, 0.22)"
+          strokeWidth="1"
+          fill="none"
         />
       </svg>
     </div>

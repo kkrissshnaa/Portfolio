@@ -50,25 +50,31 @@ export const ArchiveFolder: React.FC<ArchiveFolderProps> = ({
     }
   };
 
+  // Stagger each folder tab horizontally across the top edge with responsive step spacing
+  const tabLeft = `calc(clamp(0.25rem, 1vw, 1.5rem) + ${folderIndex} * clamp(52px, 16vw, 215px))`;
+  const computedZIndex = folderState === "pulling" ? 200 : 20 + folderIndex;
+
   return (
     <motion.div
-      className={`archive-folder stack-group ${isHovered ? "is-unfolded" : "is-rotated"}`}
+      className={`archive-folder stack-group ${isHovered ? "is-unfolded is-active" : "is-rotated"}`}
       style={
         {
           "--cover-color": project.textColor,
           "--cover-bg-color": project.bgColor,
-          "--v-zindex": folderState === "pulling" ? 200 : folderIndex,
-          "--v-offset-idx": offsetIdx
+          "--v-zindex": computedZIndex,
+          "--v-offset-idx": offsetIdx,
+          zIndex: computedZIndex
         } as React.CSSProperties
       }
       initial={false}
       animate={
         folderState === "pulling"
           ? {
-              y: -40,
+              y: -50,
               scale: 1.02,
               rotateX: 0,
-              z: 60,
+              rotateZ: 0,
+              z: 100,
               transition: {
                 duration: motionTokens.duration.material,
                 ease: motionTokens.ease.material
@@ -76,8 +82,10 @@ export const ArchiveFolder: React.FC<ArchiveFolderProps> = ({
             }
           : isHovered
           ? {
-              y: -6,
-              rotateZ: 0.3,
+              y: -8,
+              rotateX: -1.5,
+              rotateZ: 0.2,
+              z: 4 * folderIndex,
               transition: {
                 duration: motionTokens.duration.quick,
                 ease: motionTokens.ease.standard
@@ -85,8 +93,9 @@ export const ArchiveFolder: React.FC<ArchiveFolderProps> = ({
             }
           : {
               y: 0,
+              rotateX: -2.5,
               rotateZ: 0,
-              scale: 1,
+              z: 2 * folderIndex,
               transition: {
                 duration: motionTokens.duration.standard,
                 ease: motionTokens.ease.soft
@@ -122,8 +131,11 @@ export const ArchiveFolder: React.FC<ArchiveFolderProps> = ({
           }}
         />
 
-        {/* Tab Header (Section 10: FolderTab) */}
-        <div className="stack-page__header absolute bottom-full left-1 z-10 pointer-events-auto">
+        {/* Tab Header (Section 10: FolderTab) - Staggered along the top border */}
+        <div
+          className="stack-page__header absolute bottom-[calc(100%-1px)] z-20 pointer-events-auto"
+          style={{ left: tabLeft }}
+        >
           <FolderTab
             label={project.title}
             index={`0${folderIndex + 1}`}
@@ -131,6 +143,9 @@ export const ArchiveFolder: React.FC<ArchiveFolderProps> = ({
             textColor={project.textColor}
             isActive={isHovered || folderState === "pulling"}
             isPulling={folderState === "pulling"}
+            onClick={(e) => {
+              handleSelect(e);
+            }}
           />
         </div>
 

@@ -42,12 +42,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="min-h-screen bg-[#0c0c0e] text-[#FDFAF7] antialiased overflow-x-hidden">
+    <html lang="en" className="dark" data-scroll-behavior="smooth">
+      <body className="min-h-screen bg-[#0c0c0e] text-[#FDFAF7] antialiased overflow-x-hidden" suppressHydrationWarning>
         <ArchiveCursor />
         {children}
       </body>
-
     </html>
   );
 }

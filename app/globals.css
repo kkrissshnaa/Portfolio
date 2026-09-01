@@ -283,12 +283,13 @@ body {
 }
 
 .stack-group.is-rotated {
-  height: calc(var(--stack-group-height-lg) + var(--stack-group-offset) * var(--v-offset-idx, 0) - 1rem);
-  transform: rotateX(var(--stack-rotation-angle)) translateZ(calc(2px * var(--v-zindex, 0)));
+  height: calc(var(--stack-group-height-lg) + var(--stack-group-offset) * var(--v-offset-idx, 0));
+  transform-style: preserve-3d;
 }
 
 .stack-group.is-unfolded {
-  height: calc(var(--stack-group-height-lg) - var(--stack-group-height-sm) + var(--stack-group-offset) + var(--stack-group-offset) * var(--v-offset-idx, 0));
+  height: calc(var(--stack-group-height-lg) + var(--stack-group-offset) * var(--v-offset-idx, 0));
+  transform-style: preserve-3d;
 }
 
 .stack-group__inner {
@@ -436,13 +437,12 @@ body {
 }
 
 .stack-page__header {
-  align-items: center;
-  bottom: 100%;
+  align-items: flex-end;
+  bottom: calc(100% - 1px);
   display: flex;
-  left: var(--stack-border-radius);
-  pointer-events: none;
+  pointer-events: auto;
   position: absolute;
-  z-index: -2;
+  z-index: 20;
 }
 
 .stack-page__unfold-area {
@@ -464,17 +464,17 @@ body {
 .tag {
   --color: #fff;
   --bg-color: #1E4BD7;
-  align-items: flex-start;
+  align-items: flex-end;
   color: var(--color);
-  display: flex;
+  display: inline-flex;
   font-family: 'Instrument Serif', Georgia, serif;
   font-size: 1.625rem;
   height: var(--tag-height);
-  margin-bottom: -1px;
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0.92;
+  pointer-events: auto;
   position: relative;
   white-space: nowrap;
+  transition: opacity 0.25s ease, filter 0.25s ease;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -485,23 +485,26 @@ body {
 
 @media only screen and (max-width: 768px) {
   .tag {
-    font-size: 1.25rem;
-    margin-left: -0.2rem;
-    margin-right: -0.75rem;
+    font-size: 1.125rem;
   }
 }
 
 @media only screen and (max-width: 480px) {
   .tag {
-    font-size: 15px;
-    margin-left: -0.5rem;
-    margin-right: -1rem;
+    font-size: 0.95rem;
   }
 }
 
-.tag.is-visible {
+.tag.is-visible,
+.tag.is-active,
+.tag:hover {
   opacity: 1;
   pointer-events: auto;
+}
+
+.tag.is-active {
+  filter: drop-shadow(0 -4px 10px rgba(0, 0, 0, 0.45));
+  z-index: 25;
 }
 
 .tag__middle {
@@ -516,13 +519,13 @@ body {
 
 @media only screen and (max-width: 768px) {
   .tag__middle span {
-    margin-inline: -0.33rem;
+    margin-inline: -0.2rem;
   }
 }
 
 @media only screen and (max-width: 480px) {
   .tag__middle span {
-    margin-inline: -0.66rem;
+    margin-inline: -0.4rem;
   }
 }
 
@@ -530,23 +533,7 @@ body {
 .tag__start {
   color: var(--bg-color);
   height: 100%;
-  transform-origin: top;
-}
-
-@media only screen and (max-width: 480px) {
-  .tag__end,
-  .tag__start {
-    height: 100%;
-    width: 3.25rem;
-  }
-}
-
-.tag__start {
-  transform: scale(-1, 1.01) translate(-1px);
-}
-
-.tag__end {
-  transform: scaleY(1.01) translate(-1px);
+  display: block;
 }
 
 .tag__side-dummy {
