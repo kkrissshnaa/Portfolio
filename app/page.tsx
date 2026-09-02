@@ -1,5 +1,9 @@
-import { ArchiveWorkspace } from "@/components/archive/ArchiveWorkspace";
+import React from 'react'
 
-export default function Home() {
-  return <ArchiveWorkspace />;
+const page = () => {
+  return (
+    <div className='border-2 border-red-300'>Main Text</div>
+  )
 }
+
+export default page
