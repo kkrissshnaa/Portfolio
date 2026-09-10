@@ -4,12 +4,12 @@ const page = () => {
   return (
     <div>
       <div>
-        <div className='flex justify-end'>
-      <header className='flex justify-evenly'>
+      <div className=' flex justify-evenly'>
+      <header>
         <div>
           <text>KRISHNA'S PORTFOLIO</text>
         </div>
-        <text>
+        <text className=' justify-end'>
           About
         </text>
       </header>
